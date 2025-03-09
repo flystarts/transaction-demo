@@ -1,7 +1,7 @@
 package com.wpy.transaction.controller;
 
 import com.wpy.transaction.dto.TransactionRequest;
-import com.wpy.transaction.service.impl.TransactionServiceImpl;
+import com.wpy.transaction.service.TransactionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,14 +14,13 @@ import javax.validation.Valid;
 
 /**
  * TransactionController 类负责处理与交易相关的 HTTP 请求。
- * 它使用 TransactionServiceImpl 来执行实际的交易操作。
  */
 @Slf4j
 @RestController
 public class TransactionController {
 
     @Autowired
-    TransactionServiceImpl transactionService;
+    TransactionService transactionService;
 
     /**
      * 处理 POST 请求，用于添加新的交易记录。
@@ -31,9 +30,9 @@ public class TransactionController {
      */
     @PostMapping("/transactions")
     public ResponseEntity<Object> addTransaction(@Valid @RequestBody TransactionRequest request) {
-        // 调用 TransactionServiceImpl 的 addTransaction 方法，传递交易相关信息
+
         transactionService.addTransaction(request.getTransactionId(), request.getSourceAccountNumber(), request.getTargetAccountNumber(), request.getAmount());
-        // 返回一个包含 201 Created 状态码的响应实体，表示资源已成功创建
+
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

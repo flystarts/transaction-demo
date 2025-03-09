@@ -5,6 +5,7 @@ import com.wpy.transaction.entity.Transaction;
 import com.wpy.transaction.exception.TransactionConflictException;
 import com.wpy.transaction.exception.TransactionErrorCodes;
 import com.wpy.transaction.exception.TransactionException;
+import com.wpy.transaction.service.AccountService;
 import com.wpy.transaction.service.TransactionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class TransactionServiceImpl implements TransactionService {
     private TransactionRepository transactionRepository;
 
     @Autowired
-    private AccountServiceImpl accountService;
+    private AccountService accountService;
 
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
