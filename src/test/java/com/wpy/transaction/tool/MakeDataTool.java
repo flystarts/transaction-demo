@@ -17,7 +17,6 @@ public class MakeDataTool {
     @Autowired
     AccountRepository accountRepository;
 
-    @Test
     public void makeAccounts() {
 
         int num = 1;

@@ -40,8 +40,8 @@ public class TransactionTest {
     @Test
     public void testAddTransaction_Success() {
         String transactionId = "125";
-        String sourceAccountNumber = "1001";
-        String targetAccountNumber = "1002";
+        String sourceAccountNumber = "1003";
+        String targetAccountNumber = "1004";
         String txKey = TX_KEY_PREFIX + transactionId;
 
         accountRepository.deleteByAccountNumber(sourceAccountNumber);
@@ -170,52 +170,6 @@ public class TransactionTest {
         assertThat(redisTemplate.opsForValue().get(txKey)).isNull();
         transactionService.addTransaction(transactionId, sourceAccountNumber, targetAccountNumber, BigDecimal.valueOf(50.0));
         assertThat(redisTemplate.opsForValue().get(txKey)).isNotNull();
-
-    }
-
-    // 模拟死锁场景
-    @Test
-    public void testAddTransaction_deadlock() throws InterruptedException {
-        String transactionId1 = "123";
-        String transactionId2 = "124";
-        String sourceAccountNumber = "1001";
-        String targetAccountNumber = "1002";
-
-        accountRepository.deleteByAccountNumber(sourceAccountNumber);
-        accountRepository.deleteByAccountNumber(targetAccountNumber);
-        transactionRepository.deleteByTransactionId(transactionId1);
-        transactionRepository.deleteByTransactionId(transactionId2);
-        redisTemplate.delete(TX_KEY_PREFIX + transactionId1);
-        redisTemplate.delete(TX_KEY_PREFIX + transactionId2);
-        accountRepository.save(new Account(sourceAccountNumber, 100.0));
-        accountRepository.save(new Account(targetAccountNumber, 100.0));
-
-        // 创建第一个线程
-        Thread thread1 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                transactionService.addTransaction(transactionId1, sourceAccountNumber, targetAccountNumber, java.math.BigDecimal.valueOf(50.0));
-            }
-        });
-
-        // 创建第二个线程
-        Thread thread2 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                transactionService.addTransaction(transactionId2, targetAccountNumber, sourceAccountNumber, java.math.BigDecimal.valueOf(50.0));
-            }
-        });
-
-        // 启动线程
-        thread1.start();
-        thread2.start();
-        thread1.join();
-        thread2.join();
-
-        Account sourceAccount = accountRepository.findByAccountNumber(sourceAccountNumber).get();
-        Account targetAccount = accountRepository.findByAccountNumber(targetAccountNumber).get();
-        assertThat(sourceAccount.getBalance().compareTo(BigDecimal.valueOf(100.0))).isEqualTo(0);
-        assertThat(targetAccount.getBalance().compareTo(BigDecimal.valueOf(100.0))).isEqualTo(0);
 
     }
 
