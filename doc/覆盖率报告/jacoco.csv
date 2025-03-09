@@ -1,0 +1,15 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+transaction,com.wpy.transaction.dto,TransactionRequest,164,31,38,0,0,5,23,9,4,9
+transaction,com.wpy.transaction.exception,TransactionConflictException,0,10,0,0,0,4,0,2,0,2
+transaction,com.wpy.transaction.exception,GlobalExceptionHandler,0,67,0,2,0,14,0,5,0,4
+transaction,com.wpy.transaction.exception,ErrorResponse,92,15,16,0,2,3,15,3,7,3
+transaction,com.wpy.transaction.exception,TransactionException,0,10,0,0,0,4,0,2,0,2
+transaction,com.wpy.transaction.exception,TransactionErrorCodes,3,0,0,0,1,0,1,0,1,0
+transaction,com.wpy.transaction.entity,Account,184,39,38,0,6,10,26,8,7,8
+transaction,com.wpy.transaction.entity,Transaction,269,24,54,0,6,9,42,3,15,3
+transaction,com.wpy.transaction,TransactionApplication,5,3,0,0,2,1,1,1,1,1
+transaction,com.wpy.transaction.config,RedisConfig,0,34,0,0,0,11,0,2,0,2
+transaction,com.wpy.transaction.controller,TransactionController,0,23,0,0,0,4,0,3,0,3
+transaction,com.wpy.transaction.service.impl,AccountServiceImpl,0,171,0,20,0,36,0,17,0,7
+transaction,com.wpy.transaction.service.impl,TransactionServiceImpl.new TransactionSynchronizationAdapter() {...},0,35,0,2,0,7,0,4,0,3
+transaction,com.wpy.transaction.service.impl,TransactionServiceImpl,0,82,0,6,0,18,0,7,0,4
