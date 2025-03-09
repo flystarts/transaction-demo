@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transaction
+  labels:
+    app: transaction
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: transaction
+  template:
+    metadata:
+      labels:
+        app: transaction
+    spec:
+      containers:
+        - name: transaction-container
+          image: registry-vpc.cn-hangzhou.aliyuncs.com/flystarts/transaction:1.0
+          envFrom:
+            - configMapRef:
+                name: transaction-config
+          ports:
+            - containerPort: 8090
+          livenessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 15
+            periodSeconds: 5
+            successThreshold: 1
+            tcpSocket:
+              port: 8090
+            timeoutSeconds: 1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /actuator/health
+              port: 8090
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "50Mi"
+            limits:
+              cpu: "2000m"
+              memory: "2Gi"
+
+
+
+
+
+
+

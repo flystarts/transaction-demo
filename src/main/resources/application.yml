@@ -1,0 +1,39 @@
+server:
+  port: 8090
+spring:
+  application:
+    name: transaction
+  profiles:
+    active: test
+  jpa:
+    hibernate:
+      # 自动创建和更新表结构
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        # 指定 PostgreSQL 方言
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+logging:
+  level:
+    org.hibernate.SQL: ERROR
+    org.apache.http: ERROR
+    org.hibernate.type.descriptor.sql.BasicBinder: OFF
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: metrics,prometheus,health
+      base-path: /actuator
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  metrics:
+    enable:
+      jvm: true
+    export:
+      prometheus:
+        enabled: true

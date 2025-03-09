@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: transaction-config
+data:
+  SPRING_DATASOURCE_URL: "jdbc:postgresql://172.25.156.242:5432/testme?currentSchema=public&Unicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&allowMultiQueries=true"
+  SPRING_DATASOURCE_USERNAME: "testme"
+  SPRING_DATASOURCE_PASSWORD: "Testme#12"
+  SPRING_REDIS_HOST: "172.25.156.242"
+  SPRING_REDIS_PASSWORD: "Testme#12"

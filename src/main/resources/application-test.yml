@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://121.196.230.24:5432/testme?currentSchema=public&Unicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&allowMultiQueries=true
+    username: testme
+    password: Testme#12
+    driver-class-name: org.postgresql.Driver
+  redis:
+    host: 121.196.230.24
+    port: 6379
+    password: Testme#12
+    ssl: false
