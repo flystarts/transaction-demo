@@ -43,8 +43,6 @@ public class TransactionServiceImpl implements TransactionService {
             maxAttempts = 3,
             backoff = @Backoff(delay = 200)
     )
-
-
     @Transactional
     public void addTransaction(String transactionId, String sourceAccountNumber, String targetAccountNumber, BigDecimal amount) {
 
